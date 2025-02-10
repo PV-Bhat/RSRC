@@ -1,116 +1,110 @@
+# RSRC Calculator: Evaluating AI Model Efficiency in the Post-Scaling Era
 
-# RSRC-calculator: Recursive Self-Referential Compression Calculator
-
-[![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-This repository contains a Python code snippet for calculating the **Recursive Self-Referential Compression (RSRC)** score for AI models. The RSRC metric aims to provide a way to evaluate the reasoning capability of AI models relative to the computational resources they consume during training.
+[**Read the Paper: Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era**](LINK_TO_YOUR_PAPER_HERE)
 
-**[➡️  Explore the full RSRC Calculator code here!](link-to-your-RSRC-calculator-repository)**
+This repository provides a practical tool to calculate the **Recursive Self-Referential Compression (RSRC)** metric, as introduced in the paper "[Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era](LINK_TO_YOUR_PAPER_HERE)".  RSRC is a dual-metric framework designed to evaluate the efficiency of AI models, distinguishing between **training efficiency (RSRC<sub>t</sub>)** and **inference efficiency (RSRC<sub>i</sub>)**.
 
-## About the RSRC Metric
+As compute-centric AI scaling faces thermodynamic and economic limits, RSRC offers a crucial lens for understanding and optimizing AI model development for a sustainable future. This calculator focuses on the **training efficiency RSRC<sub>t</sub> metric**, providing a score that reflects resource utilization during the training phase.
 
-The Recursive Self-Referential Compression (RSRC) is a metric designed to assess the efficiency of AI models by balancing their recursive reasoning & compression with the resources required to train them. It takes into account:
+## Repository Structure
 
-*   **Model Size (Parameters):**  Larger models are generally considered more capable, but size also impacts resource consumption.
-*   **Training Compute (FLOPs):** The amount of computation used to train the model.
-*   **Energy Efficiency:** The energy consumed per FLOP during training.
-*   **Model Architecture (MoE vs. Dense):**  Different architectures have inherent efficiency trade-offs.
-*   **Model Age:** Newer models often benefit from algorithmic and hardware improvements.
+```
+RSRC-Calculator/
+├── README.md           # This README file
+├── LICENSE             # GNU GPLv3 License
+├── rsrc_calculator.py  # Python script for RSRC calculation
+├── data/               # Directory for datasets
+│   └── model_leaderboard.csv  # CSV dataset of AI models and metrics
+└── code_snippets/      # Directory for code examples from the paper
+    ├── moe_sparsity/           # Code snippets for MoE implementation (Strategy 1)
+    ├── energy_monitoring/      # Code snippets for energy monitoring (Strategy 2)
+    └── recursive_regularization/ # Code snippets for recursive regularization (Strategy 3)
+```
 
-The RSRC score is calculated using a simplified formula that incorporates these factors, providing a single metric to compare the resource efficiency of different AI models.
+## Dataset: Model Leaderboard (`data/model_leaderboard.csv`)
 
-## Code Snippet: `rsrc_calculator.py`
+The `data/model_leaderboard.csv` file contains a curated leaderboard of various AI models along with key metrics used for RSRC calculation. These metrics include:
 
-This repository provides a Python code snippet (`rsrc_calculator.py`) that implements the RSRC calculation. You can use this snippet to:
+*   **Model Name**: Name of the AI model.
+*   **Architecture**:  Model architecture type (Dense, MoE, etc.).
+*   **Parameters (B)**: Total number of parameters in billions. For MoE models, this often represents the total parameters, with active parameters being a subset.
+*   **Layers**: Number of layers in the model.
+*   **Training FLOPs**: Estimated total floating-point operations for training (in PetaFLOPs).
+*   **MMLU (5-shot)**:  Performance on the MMLU benchmark (5-shot accuracy).
+*   **Energy/pFLOP**: Estimated energy cost per PetaFLOP of computation (in picojoules).
+*   **Year**: Year of model release or training completion.
+*   **RSRC**: Calculated RSRC training efficiency score.
 
-*   Calculate RSRC scores for your own datasets of AI models.
-*   Experiment with different parameters and adjustments in the RSRC formula.
-*   Contribute to the ongoing development and refinement of the RSRC metric.
+**Important Note on Data Approximation:**
 
-### Prerequisites
+It is crucial to understand that many data points within `model_leaderboard.csv` are **approximations and extrapolations**, especially for cutting-edge and proprietary models where official data is often limited. These approximations are derived from a variety of sources, including:
 
-Before running the code, ensure you have Python 3.6 or later installed, along with the following libraries:
+*   **Analyst Estimates and Reports**: Industry expert opinions, technical analyses, and blog posts.
+*   **Inference from Publicly Available Data**: Estimating FLOPs from reported training costs, energy consumption from GPU benchmarks, and so on.
+*   **Model Cards and Technical Documentation**: Utilizing information released by model developers, which may sometimes be incomplete or lack specific details on training metrics.
+*   **Scaling Law Extrapolations**: Applying known scaling trends to estimate metrics where direct data is absent.
 
-*   [Pandas](https://pandas.pydata.org/): For data manipulation and DataFrame creation. Install using: `pip install pandas`
-*   [NumPy](https://numpy.org/): For numerical operations. Install using: `pip install numpy`
+**As such, while we strive for the best possible estimates, the data should be considered as indicative and not perfectly accurate.** The RSRC calculator is intended as a **comparative tool** using the best available information to evaluate relative efficiency.  We encourage community contributions to refine and improve the accuracy of the dataset.
 
-### Usage
+## RSRC Calculator Usage (`rsrc_calculator.py`)
 
-1.  **Download `rsrc_calculator.py`:** Download the `rsrc_calculator.py` file from this repository.
-2.  **Populate `model_data` Dictionary:** Open the `rsrc_calculator.py` file in a text editor.  Locate the `model_data` dictionary within the `if __name__ == '__main__':` block.  **Replace the empty lists** in this dictionary with your AI model data.
+The `rsrc_calculator.py` script is a Python tool to calculate the RSRC training efficiency score (RSRC<sub>t</sub>) for AI models.
 
-    The `model_data` dictionary should be structured as follows:
+**Requirements:**
 
-    ```python
-    model_data = {
-        "Model": [],  # List of model names (strings)
-        "Architecture": [],  # List of architectures ("MoE" or "Dense" strings)
-        "Parameters (B)": [],  # List of parameter counts in billions (floats)
-        "Layers": [],  # List of layer counts (integers or None if unknown)
-        "Training FLOPs": [],  # List of training FLOPs (floats) - in PetaFLOPs
-        "MMLU (5-shot)": [],  # List of MMLU 5-shot scores (floats) - in percentage
-        "Energy/pFLOP": [],  # List of Energy/pFLOP values (floats) - in pJ
-        "Year": []   # List of training/release years (integers)
-    }
+*   Python 3.x
+*   pandas
+*   numpy
+
+**Running the Calculator:**
+
+1.  **Install Dependencies:**
+    ```bash
+    pip install pandas numpy
     ```
 
-    **Example Data Entry:**
-
-    ```python
-    model_data = {
-        "Model": ["GPT-4", "Claude 3 Opus"],
-        "Architecture": ["MoE", "Dense"],
-        "Parameters (B)": [1800, 130],
-        "Layers": [120, 96],
-        "Training FLOPs": [21500, 45000],
-        "MMLU (5-shot)": [86.4, 86.8],
-        "Energy/pFLOP": [62.1, 90.0],
-        "Year": [2023, 2024]
-    }
-    ```
-
-3.  **Run the Script:** Open your terminal or command prompt, navigate to the directory where you saved `rsrc_calculator.py`, and execute the script using:
-
+2.  **Run the script:**
     ```bash
     python rsrc_calculator.py
     ```
 
-4.  **View Output:**
+The script will:
 
-    *   **Console Output:** The script will print a Pandas DataFrame to your console, displaying the input model data along with the calculated "New RSRC" scores.
-    *   **CSV Output (Optional):** To save the results to a CSV file, uncomment the lines in the `if __name__ == '__main__':` block that are related to `rsrc_leaderboard_df.to_csv(...)`. This will save the leaderboard data to a file named `rsrc_leaderboard.csv` in the same directory.
+*   Load model data from `data/model_leaderboard.csv`.
+*   Calculate the RSRC score for each model based on the formula presented in the paper and the provided parameters.
+*   Output the updated leaderboard to the console, including the calculated RSRC scores.
+*   Optionally, it can output the leaderboard as a new CSV file (currently configured to print to console).
 
-### Understanding the Formula and Parameters
+**Customizing and Extending:**
 
-The `calculate_rsrc` function implements the following simplified RSRC formula:
+*   **Modify `model_leaderboard.csv`**:  Update the dataset with new models or refined metrics.
+*   **Adjust Parameters in `rsrc_calculator.py`**:  Experiment with `alpha`, `beta`, `gamma`, `age decay`, and other parameters within the script to explore different weighting schemes and sensitivities of the RSRC metric.
+*   **Contribute Code Snippets**:  Add more code examples to the `code_snippets/` directory illustrating RSRC-related concepts.
 
-```
-RSRC = ln(Active Parameters) / (FLOPs Efficiency Score ^ gamma) * Age Decay
-```
+## Code Snippets (`code_snippets/`)
 
-Where:
+This directory contains illustrative code snippets related to the RSRC framework and optimization strategies discussed in the paper.  Currently, it includes examples for:
 
-*   **FLOPs Efficiency Score:**  Calculated as `(Training FLOPs / Parameters^alpha) * (Energy/pFLOP / beta)`. This score penalizes models that are inefficient in their use of compute and energy relative to their size.
-*   **Active Parameters:** Represents the effective parameter count, especially important for MoE models where only a fraction of parameters are active during inference. For MoE models, `Active Parameters` are scaled down by `moe_param_scale_factor`.
-*   **gamma:**  Exponent applied to the `FLOPs Efficiency Score`. Different `gamma` values are used for MoE (`moe_exponent`) and Dense (`dense_exponent`) architectures to fine-tune the FLOPs penalty.
-*   **Age Decay:** A factor that reduces the RSRC score for older models, acknowledging the advancements in model efficiency over time.
+*   **MoE Sparsity (`moe_sparsity/`)**: [*(Add a brief description of what the MoE snippet demonstrates)*]
+*   **Energy Monitoring (`energy_monitoring/`)**: [*(Add a brief description of what the energy monitoring snippet demonstrates)*]
+*   **Recursive Regularization (`recursive_regularization/`)**: [*(Add a brief description of what the recursive regularization snippet demonstrates)*]
 
-**Key Parameters for Customization (defined at the beginning of the script):**
-
-*   `alpha`: Controls the influence of parameter count in the FLOPs Efficiency Score.
-*   `beta`: Normalization factor for energy per FLOP.
-*   `moe_param_scale_factor`: Scales down parameters for MoE models.
-*   `legacy_penalty_factor`: Penalizes older dense models.
-*   `moe_exponent`, `dense_exponent`: Gamma exponents for MoE and Dense models respectively.
-*   `current_year`:  Used for age decay calculation; update this to the current year or a relevant benchmark year.
-
-Feel free to experiment with these parameters to adjust the RSRC calculation to better fit your specific evaluation needs or to explore different weighting schemes for resource efficiency.
+[**We encourage contributions of further code snippets and examples to expand this resource.**]
 
 ## Contributing
 
-Contributions to improve the code, refine the RSRC formula, or expand the model dataset are welcome! Please feel free to fork this repository and submit pull requests with your enhancements.
+We welcome contributions to improve the RSRC calculator, refine the dataset, and expand the code examples.  
 
 ## License
 
-This code is released under the [MIT License](LICENSE).
+This project is licensed under the terms of the **GNU General Public License v3**. See the `LICENSE` file for complete license details.
+
+## Disclaimer
+
+The RSRC metric and this calculator are tools for evaluating AI model efficiency within a developing research framework.  The results should be interpreted in the context of the approximated and extrapolated data used.  This is not an official benchmark, and the authors of the RSRC paper and this repository are not responsible for decisions made based on these calculations.
+
+---
+
+[**MURST Research Initiative**](https://murst.org/)
