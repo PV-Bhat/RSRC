@@ -1,4 +1,4 @@
-# RSRC Calculator: Evaluating AI Model Efficiency in the Post-Scaling Era
+# RSRC Calculator
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -39,7 +39,6 @@ The `data/model_leaderboard.csv` file contains a curated leaderboard of various 
 - **MMLU (5-shot)**: Performance on the MMLU benchmark (5-shot accuracy).
 - **Energy/pFLOP**: Estimated energy cost per PetaFLOP of computation (in picojoules).
 - **Year**: Year of model release or training completion.
-- **RSRC**: Calculated RSRC training efficiency score.
 
 ### Important Note on Data Approximation
 
