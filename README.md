@@ -6,9 +6,9 @@
 [![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 
 
-[**Read the Paper: Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era**](LINK_TO_YOUR_PAPER_HERE)
+[**Read the Paper: Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era**](https://doi.org/10.5281/zenodo.14846507)
 
-This repository provides a practical tool to calculate the **Recursive Self-Referential Compression (RSRC)** metric, as introduced in the paper [*Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era*](LINK_TO_YOUR_PAPER_HERE). RSRC is a dual-metric framework designed to evaluate the efficiency of AI models by distinguishing between **training efficiency (RSRC<sub>t</sub>)** and **inference efficiency (RSRC<sub>i</sub>)**.
+This repository provides a practical tool to calculate the **Recursive Self-Referential Compression (RSRC)** metric, as introduced in the paper [*Recursive Self-Referential Compression (RSRC): AI's Survival Map in the Post-Scaling Era*](https://doi.org/10.5281/zenodo.14846507). RSRC is a dual-metric framework designed to evaluate the efficiency of AI models by distinguishing between **training efficiency (RSRC<sub>t</sub>)** and **inference efficiency (RSRC<sub>i</sub>)**.
 
 As compute-centric AI scaling faces thermodynamic and economic limits, RSRC offers a crucial lens for understanding and optimizing AI model development for a sustainable future. This calculator focuses on the **training efficiency RSRC<sub>t</sub> metric**, providing a score that reflects resource utilization during the training phase.
 
